@@ -1,120 +1,142 @@
 # AWS-S3-Bucket-Permission-Policy-Management-Public-Private-Deny-Rules-
  Bucket Permission &amp; Policy Management (Public, Private, Deny Rules)
 
-## 📌 Project Overview
-This project demonstrates real-world Amazon S3 permission and security management using
-bucket policies and object-level permissions. Different folders in a single S3 bucket
-are configured with specific allow and deny rules to control access.
+📌 Project Overview
 
-This project is designed for AWS learning, interviews, and resume use.
+This project demonstrates how to manage and control access permissions in an Amazon S3 bucket using bucket policies and object-level permissions.
+Different folders and files are configured with Public, Private, and Deny access rules to understand real-world S3 security behavior.
 
----
+🏗️ Project Architecture (Design)
 
-## 🎯 Project Objectives
-- Understand S3 bucket policies
-- Implement public and private object access
-- Restrict delete, upload, and read operations
-- Apply security best practices in AWS S3
+AWS S3 Bucket
 
----
+Multiple folders with different permission rules
 
-## 🏗️ Bucket Structure
-s3-permission-demo-bucket
-│
-├── images/
-│ ├── public-image.jpg (Public Read)
-│ └── private-image.jpg (Private)
-│
-├── mydata/ (Delete Denied)
-├── videos/ (Upload Denied)
-└── myfiles/ (Read Denied)
-
-
----
-
-## 🔧 AWS Services Used
-- Amazon S3
-- IAM
-- Bucket Policy
-
----
-
-## 🪜 Step-by-Step Implementation
-
-### 1️⃣ Create S3 Bucket
-- Create an S3 bucket
-- Disable “Block all public access”
-- Enable ACLs
-
----
-
-### 2️⃣ Images Folder (Public & Private)
-- Upload two images
-- Make one image public using object permissions
-- Keep the second image private
-
-✅ Public image opens in browser  
-❌ Private image shows Access Denied
-
----
-
-### 3️⃣ mydata Folder – Delete Denied
-**Bucket Policy**
-```json
-{
-  "Effect": "Deny",
-  "Principal": "*",
-  "Action": "s3:DeleteObject",
-  "Resource": "arn:aws:s3:::s3-permission-demo-*/mydata/*"
-}
-✔ Upload allowed
-❌ Delete denied
-
-4️⃣ videos Folder – Upload Denied
 Bucket Policy
 
-{
-  "Effect": "Deny",
-  "Principal": "*",
-  "Action": "s3:PutObject",
-  "Resource": "arn:aws:s3:::s3-permission-demo-*/videos/*"
-}
-❌ Upload denied
+Public & Private object access
 
-5️⃣ myfiles Folder – Read Denied
+Browser URL testing
+
+📂 S3 Folder Structure & Permissions
+1️⃣ images/ Folder
+
+Uploaded 2 image files
+
+Image 1:
+
+Public access enabled
+
+Accessible via browser URL
+
+Image 2:
+
+Private access
+
+Access denied when URL is opened
+
+Purpose:
+To understand public vs private object access in S3.
+
+2️⃣ mydata/ Folder
+
+Folder-level permission applied
+
+Delete action is explicitly denied
+
+Permission Rule:
+
+❌ s3:DeleteObject – Denied
+
+✅ Read & upload allowed (optional)
+
+Purpose:
+To prevent accidental or unauthorized deletion of critical data.
+
+3️⃣ video/ Folder
+
+Upload permission denied
+
+Permission Rule:
+
+❌ s3:PutObject – Denied
+
+Existing objects cannot be overwritten or uploaded
+
+Purpose:
+To restrict users from uploading large or unwanted video files.
+
+4️⃣ myfiles/ Folder
+
+Uploaded an important file
+
+Read access denied
+
+Permission Rule:
+
+❌ s3:GetObject – Denied
+
+File is not accessible via browser URL
+
+Purpose:
+To secure confidential files from being viewed or downloaded.
+
+🛡️ AWS Services Used
+
+Amazon S3
+
+IAM (Policy Management)
+
 Bucket Policy
 
-{
-  "Effect": "Deny",
-  "Principal": "*",
-  "Action": "s3:GetObject",
-  "Resource": "arn:aws:s3:::s3-permission-demo-*/myfiles/*"
-}
-❌ Browser URL access denied
+Object-level Permissions
 
-🧪 Testing Summary
-Folder	Permission Tested	Result
-images	Public Read	✅ Allowed
-images	Private Read	❌ Denied
-mydata	Delete	❌ Denied
-videos	Upload	❌ Denied
-myfiles	Read	❌ Denied
-📁 Repository Structure
-aws-s3-permission-management-project/
-│
-├── README.md
-├── policies/
-│   ├── delete-deny-mydata.json
-│   ├── upload-deny-videos.json
-│   └── read-deny-myfiles.json
-│
-└── screenshots/
-📌 Resume Description
-AWS S3 Permission Management Project
-Implemented secure Amazon S3 bucket policies to control public and private access,
-restrict delete, upload, and read operations for sensitive data following AWS best practices.
+⚙️ Implementation Steps
 
-✅ Author
+Created an S3 bucket
+
+Created folders: images, mydata, video, myfiles
+
+Uploaded sample files
+
+Applied bucket policies for:
+
+Public access
+
+Private access
+
+Upload deny
+
+Read deny
+
+Delete deny
+
+Tested permissions using browser URLs
+
+✅ Key Learnings
+
+Difference between bucket policy and object permissions
+
+How Deny rules override Allow
+
+Securing sensitive data in S3
+
+Real-time permission testing using browser access
+
+📎 Use Case
+
+This project is useful for:
+
+Cloud security learning
+
+AWS hands-on practice
+
+Resume and interview projects
+
+Real-world S3 access control scenarios
+
+👨‍💻 Author
+
 Om Suryawanshi
-
+🔗 GitHub: https://github.com/omsuryawanshi527
 
